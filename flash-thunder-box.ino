@@ -1,17 +1,17 @@
 int ledPin = 5;
 int buttonApin = 2;
 
-int segmentA = 39; // pin 11
-int segmentB = 31; // pin 7
+int segmentA = A4; // pin 11
+int segmentB = A0; // pin 7
 int segmentC = 28; // pin 4
 int segmentD = 24; // pin 2
 int segmentE = 22; // pin 1
-int segmentF = 37; // pin 10
+int segmentF = A3; // pin 10
 int segmentG = 30; // pin 5
 int segmentDp = 26; // pin 3
-int digit1 = 41; // pin 12
-int digit2 = 35; // pin 9
-int digit3 = 33; // pin 8
+int digit1 = A5; // pin 12
+int digit2 = A2; // pin 9
+int digit3 = A1; // pin 8
 int digit4 = 32; // pin 6
 
 int delayForNextDigit = 200;
@@ -39,20 +39,19 @@ void setup()
   pinMode(ledPin, OUTPUT);
   pinMode(buttonApin, INPUT);  
 
-  pinMode(22, OUTPUT);
-  pinMode(24, OUTPUT);
-  pinMode(26, OUTPUT);
-  pinMode(28, OUTPUT);
-  pinMode(30, OUTPUT);
-  pinMode(32, OUTPUT);
+  pinMode(segmentA, OUTPUT);
+  pinMode(segmentB, OUTPUT);
+  pinMode(segmentC, OUTPUT);
+  pinMode(segmentD, OUTPUT);
+  pinMode(segmentE, OUTPUT);
+  pinMode(segmentF, OUTPUT);
+  pinMode(segmentG, OUTPUT);
+  pinMode(segmentDp, OUTPUT);
 
-  pinMode(31, OUTPUT);
-  pinMode(33, OUTPUT);
-  pinMode(35, OUTPUT);
-  pinMode(37, OUTPUT);
-  pinMode(39, OUTPUT);
-  pinMode(41, OUTPUT);
-
+  pinMode(digit1, OUTPUT);
+  pinMode(digit2, OUTPUT);
+  pinMode(digit3, OUTPUT);
+  pinMode(digit4, OUTPUT);
 }
  
 int lastButtonState = 0;
