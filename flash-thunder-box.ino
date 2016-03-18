@@ -1,18 +1,18 @@
-int ledPin = 5;
-int buttonApin = 2;
+int ledPin = 13;
+int buttonApin = 8;
 
 int segmentA = A4; // pin 11
 int segmentB = A0; // pin 7
-int segmentC = 28; // pin 4
-int segmentD = 24; // pin 2
-int segmentE = 22; // pin 1
+int segmentC = 5; // pin 4
+int segmentD = 3; // pin 2
+int segmentE = 2; // pin 1
 int segmentF = A3; // pin 10
-int segmentG = 30; // pin 5
-int segmentDp = 26; // pin 3
+int segmentG = 6; // pin 5
+int segmentDp = 4; // pin 3
 int digit1 = A5; // pin 12
 int digit2 = A2; // pin 9
 int digit3 = A1; // pin 8
-int digit4 = 32; // pin 6
+int digit4 = 7; // pin 6
 
 int delayForNextDigit = 200;
 
@@ -92,19 +92,19 @@ void loop()
 }
 
 void clearDisplay() {
-  digitalWrite(22, LOW);
-  digitalWrite(24, LOW);
-  digitalWrite(26, LOW);
-  digitalWrite(28, LOW);
-  digitalWrite(30, LOW);
-  digitalWrite(23, LOW);
+  digitalWrite(segmentA, LOW);
+  digitalWrite(segmentB, LOW);
+  digitalWrite(segmentC, LOW);
+  digitalWrite(segmentD, LOW);
+  digitalWrite(segmentE, LOW);
+  digitalWrite(segmentF, LOW);
+  digitalWrite(segmentG, LOW);
+  digitalWrite(segmentDp, LOW);
 
-  digitalWrite(31, LOW);
-  digitalWrite(33, LOW);
-  digitalWrite(35, LOW);
-  digitalWrite(37, LOW);
-  digitalWrite(39, LOW);
-  digitalWrite(41, LOW);
+  digitalWrite(digit1, LOW);
+  digitalWrite(digit2, LOW);
+  digitalWrite(digit3, LOW);
+  digitalWrite(digit4, LOW);
 }
 
 void zero() {
