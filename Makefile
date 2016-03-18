@@ -7,8 +7,8 @@
 #AVRDUDE_ARD_BAUDRATE   = 115200
 #AVRDUDE_ARD_PROGRAMMER = arduino
 
-BOARD_TAG     = mega2560
-#BOARD_TAG     = uno
+#BOARD_TAG     = mega2560
+BOARD_TAG     = uno
 MONITOR_PORT  = /dev/ttyACM0
 
 include /usr/share/arduino/Arduino.mk
