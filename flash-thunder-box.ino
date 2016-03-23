@@ -14,7 +14,8 @@ int digit2 = A2; // pin 9
 int digit3 = A1; // pin 8
 int digit4 = 7; // pin 6
 
-int delayForNextDigit = 200;
+int delayForNextDigit = 2;
+int delayBetweenRefresh = 50;
 
 void clearDisplay();
 void zero();
@@ -32,7 +33,8 @@ void setDigit(int);
 void testSegment(int);
 void loading();
 void displayDigit(int);
-void displayNumber(int); 
+void calculateNumber(int);
+void displayNumber(); 
 
 void setup() 
 {
@@ -58,7 +60,7 @@ int lastButtonState = 0;
 bool isPressed = false;
 int ledState = 0;
 bool timeRunning = false;
-int numberToBeDisplayed = 0;
+int firstDigit = 0, secondDigit = 0, thirdDigit = 0, fourthDigit = 0;
 
 void buttonToggled();
 
@@ -85,8 +87,10 @@ void loop()
 
   lastButtonState = buttonState;
 
-  if(numberToBeDisplayed > 0)
-    displayNumber(numberToBeDisplayed);
+  if(firstDigit + secondDigit + thirdDigit + fourthDigit > 0) {
+    displayNumber();
+    delayMicroseconds(delayBetweenRefresh);
+  }
   else
     clearDisplay();
 }
@@ -216,6 +220,7 @@ void nine() {
   digitalWrite(segmentG, HIGH);
   digitalWrite(segmentDp, LOW);
 }
+
 void setDigit(int digit) {
   digitalWrite(digit1, digit == 1 ? LOW : HIGH);
   digitalWrite(digit2, digit == 2 ? LOW : HIGH);
@@ -266,28 +271,49 @@ void buttonToggled() {
 
     int distance = (int) (secondsRun * 340.29 + 0.5);
 
-    numberToBeDisplayed = distance;
     timeRunning = false;
+    calculateNumber(distance);
   }
   else {
     // start time
     startTime = millis();
     timeRunning = true;
-    numberToBeDisplayed = 0;
+    firstDigit = secondDigit = thirdDigit = fourthDigit = 0;
   }
 }
 
-void displayNumber(int number) {
-    setDigit(1);
-    displayDigit(number / 1000 % 10);
-    delayMicroseconds(delayForNextDigit);
-    setDigit(2);
-    displayDigit(number / 100 % 10);
-    delayMicroseconds(delayForNextDigit);
-    setDigit(3);
-    displayDigit(number / 10 % 10);
-    delayMicroseconds(delayForNextDigit);
+void calculateNumber(int number) {
+  firstDigit = number / 1000 % 10;
+  secondDigit = number / 100 % 10;
+  thirdDigit = number / 10 % 10;
+  fourthDigit = number % 10;
+}
+
+void displayNumber() {
+    if(firstDigit != 0) {
+      clearDisplay();
+      setDigit(1);
+      displayDigit(firstDigit);
+      delayMicroseconds(delayForNextDigit);
+    }
+    
+    if(firstDigit != 0 || secondDigit != 0 || thirdDigit != 0) {
+      clearDisplay();
+      setDigit(3);
+      displayDigit(thirdDigit);
+      delayMicroseconds(delayForNextDigit);
+    }
+    
+    if(firstDigit != 0 || secondDigit != 0) {
+      clearDisplay();
+      setDigit(2);
+      displayDigit(secondDigit);
+      delayMicroseconds(delayForNextDigit);
+    }
+    
+    clearDisplay();
     setDigit(4);
-    displayDigit(number % 10);
+    displayDigit(fourthDigit);
     delayMicroseconds(delayForNextDigit);
 }
+
