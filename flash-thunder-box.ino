@@ -34,7 +34,7 @@ void testSegment(int);
 void loading();
 void displayDigit(int);
 void calculateNumber(int);
-void displayNumber(); 
+void displayNumber();
 
 void setup() 
 {
@@ -54,6 +54,8 @@ void setup()
   pinMode(digit2, OUTPUT);
   pinMode(digit3, OUTPUT);
   pinMode(digit4, OUTPUT);
+  
+  Serial.begin(9600);
 }
  
 int lastButtonState = 0;
@@ -61,6 +63,7 @@ bool isPressed = false;
 int ledState = 0;
 bool timeRunning = false;
 int firstDigit = 0, secondDigit = 0, thirdDigit = 0, fourthDigit = 0;
+bool decimalPoint = false;
 
 void buttonToggled();
 
@@ -283,6 +286,16 @@ void buttonToggled() {
 }
 
 void calculateNumber(int number) {
+  Serial.println(number);
+  
+  if(number > 9999) {
+    number /= 100.;
+    decimalPoint = true;
+  }
+  else {
+    decimalPoint = false;
+  }
+  
   firstDigit = number / 1000 % 10;
   secondDigit = number / 100 % 10;
   thirdDigit = number / 10 % 10;
@@ -301,6 +314,10 @@ void displayNumber() {
       clearDisplay();
       setDigit(3);
       displayDigit(thirdDigit);
+      if(decimalPoint)
+        digitalWrite(segmentDp, HIGH);
+      else
+        digitalWrite(segmentDp, LOW);
       delayMicroseconds(delayForNextDigit);
     }
     
