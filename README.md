@@ -27,3 +27,12 @@ Pin layout: bottom left to right: 1-6, top right to left: 7-12
     12 Digit 1 6
 
 For more information and Arduino Uno pin layout: http://www.ithepro.com/2015/11/kyx-5461as-4-digit-7-segment-led.html
+
+### Button with LED
+
+https://www.adafruit.com/products/1443
+
+### Power Switch
+
+https://www.sparkfun.com/products/11138
+https://www.adafruit.com/products/805
