@@ -1,18 +1,8 @@
-int ledPin = 13;
-int buttonApin = 8;
+#include "Display.h"
 
-int segmentA = A4; // pin 11
-int segmentB = A0; // pin 7
-int segmentC = 5; // pin 4
-int segmentD = 3; // pin 2
-int segmentE = 2; // pin 1
-int segmentF = A3; // pin 10
-int segmentG = 6; // pin 5
-int segmentDp = 4; // pin 3
-int digit1 = A5; // pin 12
-int digit2 = A2; // pin 9
-int digit3 = A1; // pin 8
-int digit4 = 7; // pin 6
+
+int ledPin = 9;
+int buttonApin = 8;
 
 int delayForNextDigit = 2;
 int delayBetweenRefresh = 50;
@@ -36,6 +26,11 @@ void displayDigit(int);
 void calculateNumber(int);
 void displayNumber();
 
+void testRun();
+void program();
+
+bool isTestRun = false;
+
 void setup() 
 {
   pinMode(ledPin, OUTPUT);
@@ -56,6 +51,12 @@ void setup()
   pinMode(digit4, OUTPUT);
   
   Serial.begin(9600);
+
+  int buttonState = digitalRead(buttonApin);
+
+  if(buttonState == HIGH) {
+    isTestRun = true;
+  }
 }
  
 int lastButtonState = 0;
@@ -69,6 +70,37 @@ void buttonToggled();
 
 void loop() 
 {
+  if(isTestRun) {
+    testRun();
+  }
+  else {
+    program();
+  }
+}
+
+void testRun() {
+  // Test LED: blink twice
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+
+  // Test display: iterate numbers
+  clearDisplay();
+  for(int digit = 1; digit < 5; ++digit) {
+    setDigit(digit);
+    for(int segment = 1; segment < 9; ++segment) {
+      testSegment(segment);
+      delay(1000);
+    }
+  }
+  clearDisplay();
+}
+
+void program() {
   int buttonState = digitalRead(buttonApin);
 
   if(buttonState != lastButtonState) {

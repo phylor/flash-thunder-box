@@ -4,6 +4,10 @@ An easy way to determine the distance of a storm is the "flash-to-bang" method. 
 
 The Flash Thunder Box calculates that distance for you. It consists of a button which can be pressed twice (first time when the flash is spotted, second time when the thunder is being heard) and displays the approximate distance to the storm.
 
+# Building and Testing
+
+To run the test program (testing the LED and the 7-segment display), press the button connected to `D9` during uploading/starting.
+
 ## Components
 
 ### 4-Digit 7-Segment Display
